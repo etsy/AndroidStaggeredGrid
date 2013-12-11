@@ -30,7 +30,7 @@ To setup import the `/library` project into your Android Studio project and add 
 The library is currently configured to be built via Gradle only. It has the following dependencies:
 
  * Android Gradle plugin v0.6.3 - `com.android.tools.build:gradle:0.6.3`
- * Android support library - `com.android.support:support-v4:19.0.+`
+ * Android Support Library v19 - `com.android.support:support-v4:19.0.+`
 
 Usage
 =====
@@ -57,8 +57,7 @@ Usage
 2. Configure attributes.
  * `item_margin` - The margin around each grid item (default 0dp).
  * `column_count_portrait` - The number of columns displayed when the grid is in portrait (default 2).
- * `column_count_landscape` - The number of columns displayed when the grid is in portrait (default 2).
- * `column_count_landscape` - The number of columns displayed when the grid is in portrait (default 2).
+ * `column_count_landscape` - The number of columns displayed when the grid is in landscape (default 3).
  * `grid_paddingLeft` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
  * `grid_paddingRight` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
  * `grid_paddingTop` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
@@ -66,7 +65,9 @@ Usage
 3. Setup an adapter just like you would with a `GridView`/`ListView`.
     ```java
     ListAdapter adapter = ...;
+
     StaggeredGridView gridView = (StaggeredGridView) findViewById(R.id.grid_view);
+
     gridView.setAdapter(adapter);
     ```
 **NOTE:**
