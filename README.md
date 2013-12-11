@@ -59,9 +59,9 @@ Usage
  * `column_count_portrait` - The number of columns displayed when the grid is in portrait (default 2).
  * `column_count_landscape` - The number of columns displayed when the grid is in landscape (default 3).
  * `grid_paddingLeft` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
- * `grid_paddingRight` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
- * `grid_paddingTop` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
- * `grid_paddingBottom` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
+ * `grid_paddingRight` - Padding to the right of the grid. Does not apply to headers and footers (default 0).
+ * `grid_paddingTop` - Padding to the top of the grid. Does not apply to headers and footers (default 0).
+ * `grid_paddingBottom` - Padding to the bottom of the grid. Does not apply to headers and footers (default 0).
 3. Setup an adapter just like you would with a `GridView`/`ListView`.
     ```java
     ListAdapter adapter = ...;
