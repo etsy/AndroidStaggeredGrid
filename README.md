@@ -72,8 +72,8 @@ Usage
     ```
 **NOTE:**
 As column widths change on orientation change, the grid view expects that all children
-maintain there own width to height ratio. To assist with this the project includes the
-`DynamicHeightImageView` as an example of a view that measures it's height based on it's width.
+maintain their own width to height ratio. To assist with this the project includes the
+`DynamicHeightImageView` as an example of a view that measures its height based on its width.
 
 TODO
 =====
