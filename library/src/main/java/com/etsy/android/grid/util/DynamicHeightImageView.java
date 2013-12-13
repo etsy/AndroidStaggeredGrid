@@ -2,12 +2,13 @@ package com.etsy.android.grid.util;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * An {@link android.widget.ImageView} layout that maintains a consistent width to height aspect ratio.
  */
-public class DynamicHeightImageView extends TextView {
+public class DynamicHeightImageView extends ImageView {
 
     private double mHeightRatio;
 
