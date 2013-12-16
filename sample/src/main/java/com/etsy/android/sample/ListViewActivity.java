@@ -1,4 +1,4 @@
-package com.etsy.com.sample;
+package com.etsy.android.sample;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,15 +13,14 @@ import java.util.List;
 
 public class ListViewActivity extends Activity {
 
-    private ListView mListView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
         setTitle("ListView");
-        mListView = (ListView) findViewById(R.id.list_view);
+
+        final ListView listView = (ListView) findViewById(R.id.list_view);
 
         LayoutInflater layoutInflater = getLayoutInflater();
 
@@ -32,12 +31,11 @@ public class ListViewActivity extends Activity {
         txtHeaderTitle.setText("THE HEADER!");
         txtFooterTitle.setText("THE FOOTER!");
 
-        mListView.addHeaderView(header);
-        mListView.addFooterView(footer);
-//        mGridView.setClipToPadding(true);
+        listView.addHeaderView(header);
+        listView.addFooterView(footer);
 
         final SampleAdapter adapter = new SampleAdapter(this, R.id.txt_line1);
-        mListView.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
         final List<String> sampleData = SampleData.generateSampleData();
         for (String data : sampleData) {

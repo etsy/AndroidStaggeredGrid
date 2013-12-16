@@ -1,4 +1,4 @@
-package com.etsy.com.sample;
+package com.etsy.android.sample;
 
 import android.app.Activity;
 import android.content.Intent;

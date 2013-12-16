@@ -1,4 +1,4 @@
-package com.etsy.com.sample;
+package com.etsy.android.sample;
 
 import java.util.ArrayList;
 import java.util.List;
