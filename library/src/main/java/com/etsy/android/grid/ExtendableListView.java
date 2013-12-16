@@ -493,7 +493,7 @@ public abstract class ExtendableListView extends AbsListView {
      */
     @Override
     protected void onLayout(final boolean changed, final int l, final int t, final int r, final int b) {
-//        super.onLayout(changed, l, t, r, b);
+        // super.onLayout(changed, l, t, r, b); - skipping base AbsListView implementation on purpose
         // haven't set an adapter yet? get to it
         if (mAdapter == null) {
             return;
@@ -527,7 +527,6 @@ public abstract class ExtendableListView extends AbsListView {
 
             if (mAdapter == null) {
                 clearState();
-//                invokeOnItemScrollListener();
                 return;
             }
 
@@ -989,7 +988,6 @@ public abstract class ExtendableListView extends AbsListView {
         final boolean overscroll = false;
         if (overscroll || distance > mTouchSlop) {
             if (overscroll) {
-                // mTouchMode = TOUCH_MODE_OVERSCROLL;
                 mMotionCorrection = 0;
             }
             else {
@@ -1279,16 +1277,9 @@ public abstract class ExtendableListView extends AbsListView {
         }
 
         while ((nextTop < end || hasSpaceDown()) && pos < mItemCount) {
-            // is this the selected item?
-//            boolean selected = pos == mSelectedPosition;
-            boolean selected = false; // we don't have selection yet TODO
-            View child = makeAndAddView(pos, nextTop, true, selected);
-//
-//            if (selected) {
-//                selectedView = child;
-//            }
+            // TODO : add selection support
+            makeAndAddView(pos, nextTop, true, false);
             pos++;
-
             nextTop = getNextChildDownsTop(pos); // = child.getBottom();
         }
 
@@ -1309,14 +1300,8 @@ public abstract class ExtendableListView extends AbsListView {
         int end = mClipToPadding ? getListPaddingTop() : 0;
 
         while ((nextBottom > end || hasSpaceUp()) && pos >= 0) {
-            // is this the selected item?
-//            boolean selected = pos == mSelectedPosition;
-            boolean selected = false; // we don't have selection yet TODO
-            View child = makeAndAddView(pos, nextBottom, false, selected);
-//            nextBottom = child.getTop();
-//            if (selected) {
-//                selectedView = child;
-//            }
+            // TODO : add selection support
+            makeAndAddView(pos, nextBottom, false, false);
             pos--;
             nextBottom = getNextChildUpsBottom(pos);
             if (DBG) Log.d(TAG, "fillUp next - position:" + pos + " nextBottom:" + nextBottom);
@@ -1794,19 +1779,19 @@ public abstract class ExtendableListView extends AbsListView {
     }
 
     protected int getFirstChildTop() {
-        return hasChildren() ? getChildAt(0).getTop() : 0; // TODO PADDING?
+        return hasChildren() ? getChildAt(0).getTop() : 0;
     }
 
     protected int getHighestChildTop() {
-        return hasChildren() ? getChildAt(0).getTop() : 0; // TODO PADDING?
+        return hasChildren() ? getChildAt(0).getTop() : 0;
     }
 
     protected int getLastChildBottom() {
-        return hasChildren() ? getChildAt(getChildCount() - 1).getBottom() : 0; // TODO PADDING?
+        return hasChildren() ? getChildAt(getChildCount() - 1).getBottom() : 0;
     }
 
     protected int getLowestChildBottom() {
-        return hasChildren() ? getChildAt(getChildCount() - 1).getBottom() : 0; // TODO PADDING?
+        return hasChildren() ? getChildAt(getChildCount() - 1).getBottom() : 0;
     }
 
     protected boolean hasChildren() {
@@ -2327,22 +2312,17 @@ public abstract class ExtendableListView extends AbsListView {
                     if (mTransientStateViews == null) {
                         mTransientStateViews = new SparseArrayCompat<View>();
                     }
-//                    scrap.dispatchStartTemporaryDetach();
                     mTransientStateViews.put(position, scrap);
                 }
                 return;
             }
 
-//            scrap.dispatchStartTemporaryDetach();
             if (mViewTypeCount == 1) {
                 mCurrentScrap.add(scrap);
             }
             else {
                 mScrapViews[viewType].add(scrap);
             }
-
-            // TODO : Accessibility
-//            ViewCompat.setAccessibilityDelegate(scrap, null);
         }
 
         /**
@@ -2394,7 +2374,6 @@ public abstract class ExtendableListView extends AbsListView {
                     if (multipleScraps) {
                         scrapViews = mScrapViews[viewType];
                     }
-//                    victim.dispatchStartTemporaryDetach();
                     lp.position = mFirstActivePosition + i;
                     scrapViews.add(victim);
                 }

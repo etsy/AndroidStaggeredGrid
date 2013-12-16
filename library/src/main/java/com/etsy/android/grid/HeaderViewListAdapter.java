@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-// package android.widget;
 package com.etsy.android.grid;
 
 import android.database.DataSetObserver;
