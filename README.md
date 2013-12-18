@@ -16,7 +16,7 @@ Features
  * Sync'd row position across orientation changes.
  * Configurable item margin.
  * Support for headers & footers.
- * Internal padding that does not effect the header & footer.
+ * Internal padding that does not affect the header & footer.
  * Extends [`AbsListView`](http://developer.android.com/reference/android/widget/AbsListView.html) - "mostly"
  * Supports [`AbsListView.OnScrollListener`](http://developer.android.com/reference/android/widget/AbsListView.OnScrollListener.html)
 
