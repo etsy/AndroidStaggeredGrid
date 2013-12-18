@@ -3,7 +3,6 @@ package com.etsy.android.grid.util;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * An {@link android.widget.ImageView} layout that maintains a consistent width to height aspect ratio.
@@ -21,7 +20,14 @@ public class DynamicHeightImageView extends ImageView {
     }
 
     public void setHeightRatio(double ratio) {
-        mHeightRatio = ratio;
+        if (ratio != mHeightRatio) {
+            mHeightRatio = ratio;
+            requestLayout();
+        }
+    }
+
+    public double getHeightRatio() {
+        return mHeightRatio;
     }
 
     @Override

@@ -22,7 +22,14 @@ public class DynamicHeightTextView extends TextView {
     }
 
     public void setHeightRatio(double ratio) {
-        mHeightRatio = ratio;
+        if (ratio != mHeightRatio) {
+            mHeightRatio = ratio;
+            requestLayout();
+        }
+    }
+
+    public double getHeightRatio() {
+        return mHeightRatio;
     }
 
     @Override
