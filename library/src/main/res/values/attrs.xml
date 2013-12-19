@@ -5,6 +5,10 @@
         <attr name="column_count_portrait" format="integer" />
         <attr name="column_count_landscape" format="integer" />
         <attr name="item_margin" format="dimension" />
+        <attr name="item_marginLeft" format="dimension" />
+        <attr name="item_marginRight" format="dimension" />
+        <attr name="item_marginTop" format="dimension" />
+        <attr name="item_marginBottom" format="dimension" />
         <attr name="grid_paddingLeft" format="dimension" />
         <attr name="grid_paddingRight" format="dimension" />
         <attr name="grid_paddingTop" format="dimension" />

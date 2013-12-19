@@ -45,6 +45,10 @@ public class StaggeredGridView extends ExtendableListView {
 
     private int mColumnCount;
     private int mItemMargin;
+    private int mItemMarginLeft;
+    private int mItemMarginRight;
+    private int mItemMarginTop;
+    private int mItemMarginBottom;
     private int mColumnWidth;
     private boolean mNeedSync;
 
