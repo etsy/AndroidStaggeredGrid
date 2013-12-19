@@ -31,12 +31,26 @@ build/
 
 #IntelliJ IDEA
 #.idea
-.idea/libraries
+.idea/
 workspace.xml
 tasks.xml
+*.iml
 *.ipr
 *.iws
 out
+
+# Android Studio
+.gradle
+/*/local.properties
+/*/out
+/*/*/build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+*.eml
 
 #Plugins and errata
 mirror/
