@@ -87,8 +87,6 @@ public class SampleAdapter extends ArrayAdapter<String> {
             }
         });
 
-        vh.txtLineOne.requestLayout();
-
         return convertView;
     }
 
