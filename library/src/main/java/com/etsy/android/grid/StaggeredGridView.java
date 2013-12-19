@@ -165,6 +165,14 @@ public class StaggeredGridView extends ExtendableListView {
 
             mItemMargin = typedArray.getDimensionPixelSize(
                     R.styleable.StaggeredGridView_item_margin, 0);
+            mItemMarginLeft = typedArray.getDimensionPixelSize(
+                    R.styleable.StaggeredGridView_item_marginLeft, 0);
+            mItemMarginRight = typedArray.getDimensionPixelSize(
+                    R.styleable.StaggeredGridView_item_marginRight, 0);
+            mItemMarginTop = typedArray.getDimensionPixelSize(
+                    R.styleable.StaggeredGridView_item_marginTop, 0);
+            mItemMarginBottom = typedArray.getDimensionPixelSize(
+                    R.styleable.StaggeredGridView_item_marginBottom, 0);
             mGridPaddingLeft = typedArray.getDimensionPixelSize(
                     R.styleable.StaggeredGridView_grid_paddingLeft, 0);
             mGridPaddingRight = typedArray.getDimensionPixelSize(
@@ -511,11 +519,11 @@ public class StaggeredGridView extends ExtendableListView {
 
     private int getChildTopMargin(final int position) {
         boolean isFirstRow = position < (getHeaderViewsCount() + mColumnCount);
-        return isFirstRow ? mItemMargin : 0;
+        return isFirstRow ? mItemMargin : mItemMarginTop;
     }
 
     private int getChildBottomMargin() {
-        return mItemMargin;
+        return mItemMarginBottom;
     }
 
     @Override
