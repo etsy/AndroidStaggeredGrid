@@ -30,12 +30,10 @@ build/
 .gradle
 
 #IntelliJ IDEA
-#.idea
-.idea/libraries
-workspace.xml
-tasks.xml
+.idea
 *.ipr
 *.iws
+*.iml
 out
 
 #Plugins and errata
