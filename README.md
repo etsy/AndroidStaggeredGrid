@@ -25,12 +25,23 @@ Setup
 
 The library was built for and tested on Android version 2.3.3(SDK 10) and above. It could be modified to support older versions if required.
 
-To setup import the `/library` project into your Android Studio project and add it as a dependency in your `build.gradle`.
+The simplest way to use AndroidStaggeredGrid is to add the library as a gradle aar dependency to your build. See the [CHANGELOG.md](https://github.com/etsy/AndroidStaggeredGrid/blob/master/CHANGELOG.md) for the latest version number.
+
+```
+dependencies {
+    mavenCentral()
+    compile 'com.etsy.android.grid:library:1.0.0'
+}
+```
+
+Alternatively import the `/library` project into your Android Studio project and add it as a dependency in your `build.gradle`.
 
 The library is currently configured to be built via Gradle only. It has the following dependencies:
 
  * Android Gradle plugin v0.6.3 - `com.android.tools.build:gradle:0.6.3`
  * Android Support Library v19 - `com.android.support:support-v4:19.0.+`
+
+Still use Eclipse/building with Ant? You can still use AndroidStaggeredGrid, it's just a few extra steps (left up to the read).
 
 Usage
 =====
