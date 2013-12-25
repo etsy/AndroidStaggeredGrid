@@ -108,6 +108,6 @@ public class StaggeredGridActivity extends Activity implements AbsListView.OnScr
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), "Clicked", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Clicked" + position, Toast.LENGTH_LONG).show();
     }
 }

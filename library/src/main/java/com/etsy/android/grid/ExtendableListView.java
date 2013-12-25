@@ -971,11 +971,11 @@ public abstract class ExtendableListView extends AbsListView {
             if (adapter != null && mItemCount > 0 &&
                     motionPosition != INVALID_POSITION &&
                     motionPosition < adapter.getCount() && sameWindow()) {
-                final View view = getChildAt(motionPosition - mFirstPosition);
+                final View view = getChildAt(motionPosition); //credit goes to @pboos
                 // If there is no view, something bad happened (the view scrolled off the
                 // screen, etc.) and we should cancel the click
                 if (view != null) {
-                    performItemClick(view, motionPosition, adapter.getItemId(motionPosition));
+                    performItemClick(view, motionPosition + mFirstPosition, adapter.getItemId(motionPosition));
                 }
             }
         }
