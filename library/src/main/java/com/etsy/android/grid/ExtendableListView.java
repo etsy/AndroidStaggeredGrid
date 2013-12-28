@@ -1883,6 +1883,7 @@ public abstract class ExtendableListView extends AbsListView {
         void start(int initialVelocity) {
             int initialY = initialVelocity < 0 ? Integer.MAX_VALUE : 0;
             mLastFlingY = initialY;
+            mScroller.forceFinished(true);
             mScroller.fling(0, initialY, 0, initialVelocity, 0, Integer.MAX_VALUE, 0, Integer.MAX_VALUE);
             mTouchMode = TOUCH_MODE_FLINGING;
             postOnAnimate(this);
