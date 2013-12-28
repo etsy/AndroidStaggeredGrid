@@ -4,7 +4,8 @@
     android:orientation="horizontal"
     android:id="@+id/panel_content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants">
 
     <com.etsy.android.grid.util.DynamicHeightTextView
         android:id="@+id/txt_line1"

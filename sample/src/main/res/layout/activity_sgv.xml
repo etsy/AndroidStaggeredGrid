@@ -9,6 +9,6 @@
         android:layout_height="match_parent"
         app:item_margin="8dp"
         app:column_count_portrait="2"
-        app:column_count_landscape="3" />
+        app:column_count_landscape="3"/>
 
 </FrameLayout>

@@ -143,6 +143,7 @@ public abstract class ExtendableListView extends AbsListView {
     private FlingRunnable mFlingRunnable;
 
     protected boolean mClipToPadding;
+    private PerformClick mPerformClick;
 
     /**
      * A class that represents a fixed view in a list, for example a header at the top
@@ -939,7 +940,17 @@ public abstract class ExtendableListView extends AbsListView {
     }
 
     private boolean onTouchUpTap(final MotionEvent event) {
-        // TODO : implement onListItemClick stuff here
+        if (mPerformClick == null) {
+            invalidate();
+            mPerformClick = new PerformClick();
+        }
+        final int motionPosition = mMotionPosition;
+        if (!mDataChanged && mAdapter.isEnabled(motionPosition)) {
+            final PerformClick performClick = mPerformClick;
+            performClick.mClickMotionPosition = motionPosition;
+            performClick.rememberWindowAttachCount();
+            performClick.run();
+        }
         return true;
     }
 
@@ -2678,5 +2689,41 @@ public abstract class ExtendableListView extends AbsListView {
             mSpecificTop = ss.viewTop;
         }
         requestLayout();
+    }
+
+    private class PerformClick extends WindowRunnnable implements Runnable {
+        int mClickMotionPosition;
+
+        public void run() {
+            if (mDataChanged) return;
+
+            final ListAdapter adapter = mAdapter;
+            final int motionPosition = mClickMotionPosition;
+            if (adapter != null && mItemCount > 0 &&
+                    motionPosition != INVALID_POSITION &&
+                    motionPosition < adapter.getCount() && sameWindow()) {
+                final View view = getChildAt(motionPosition); // a fix by @pboos
+
+                if (view != null) {
+                    performItemClick(view, motionPosition + mFirstPosition, adapter.getItemId(motionPosition));
+                }
+            }
+        }
+    }
+
+    /**
+     * A base class for Runnables that will check that their view is still attached to
+     * the original window as when the Runnable was created.
+     */
+    private class WindowRunnnable {
+        private int mOriginalAttachCount;
+
+        public void rememberWindowAttachCount() {
+            mOriginalAttachCount = getWindowAttachCount();
+        }
+
+        public boolean sameWindow() {
+            return hasWindowFocus() && getWindowAttachCount() == mOriginalAttachCount;
+        }
     }
 }
