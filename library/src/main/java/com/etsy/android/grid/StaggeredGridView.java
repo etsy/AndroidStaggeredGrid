@@ -16,8 +16,6 @@
 
 package com.etsy.android.grid;
 
-import java.util.Arrays;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -27,6 +25,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Arrays;
 
 /**
  * A staggered grid view which supports multiple columns with rows of varying sizes.
@@ -264,7 +264,7 @@ public class StaggeredGridView extends ExtendableListView {
                 childHeightSpec = MeasureSpec.makeMeasureSpec(layoutParams.height, MeasureSpec.EXACTLY);
             }
             else {
-                childHeightSpec = MeasureSpec.makeMeasureSpec(LayoutParams.WRAP_CONTENT, MeasureSpec.EXACTLY);
+                childHeightSpec = MeasureSpec.makeMeasureSpec(LayoutParams.WRAP_CONTENT, MeasureSpec.UNSPECIFIED);
             }
             child.measure(childWidthSpec, childHeightSpec);
         }
