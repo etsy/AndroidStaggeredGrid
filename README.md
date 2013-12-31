@@ -38,7 +38,7 @@ Alternatively import the `/library` project into your Android Studio project and
 
 The library is currently configured to be built via Gradle only. It has the following dependencies:
 
- * Android Gradle plugin v0.7.+ - `com.android.tools.build:gradle:0.7.+`
+ * Android Gradle plugin v0.7.+ - `com.android.tools.build:gradle:0.7.3`
  * Android Support Library v19 - `com.android.support:support-v4:19.0.+`
 
 Still use Eclipse/building with Ant? You can still use AndroidStaggeredGrid, it's just a few extra steps (left up to the read).
@@ -91,11 +91,12 @@ TODO
 
 The `StaggeredGridView` does not support the following:
 
+ * Item selector drawables
+ * Item long press event
  * Scroll bars
  * Row dividers
  * Edge effect
  * Fading edge
- * Item selection or long press
  * Overscroll
 
 License
