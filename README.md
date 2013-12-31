@@ -30,7 +30,7 @@ The simplest way to use AndroidStaggeredGrid is to add the library as a gradle a
 ```
 dependencies {
     mavenCentral()
-    compile 'com.etsy.android.grid:library:1.0.0'
+    compile 'com.etsy.android.grid:library:1.0.1'
 }
 ```
 
