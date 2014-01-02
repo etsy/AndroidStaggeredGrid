@@ -30,7 +30,7 @@ The simplest way to use AndroidStaggeredGrid is to add the library as a gradle a
 ```
 dependencies {
     mavenCentral()
-    compile 'com.etsy.android.grid:library:1.0.1'
+    compile 'com.etsy.android.grid:library:x.x.x' // see changelog
 }
 ```
 
@@ -41,7 +41,7 @@ The library is currently configured to be built via Gradle only. It has the foll
  * Android Gradle plugin v0.7.3 - `com.android.tools.build:gradle:0.7.3`
  * Android Support Library v19 - `com.android.support:support-v4:19.0.+`
 
-Still use Eclipse/building with Ant? You can still use AndroidStaggeredGrid, it's just a few extra steps (left up to the read).
+Still use Eclipse/building with Ant? You can still use AndroidStaggeredGrid, it's just a few extra steps (left up to the reader).
 
 Usage
 =====
