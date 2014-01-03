@@ -945,7 +945,7 @@ public abstract class ExtendableListView extends AbsListView {
             mPerformClick = new PerformClick();
         }
         final int motionPosition = mMotionPosition;
-        if (!mDataChanged && mAdapter.isEnabled(motionPosition)) {
+        if (!mDataChanged && motionPosition > 0 && mAdapter.isEnabled(motionPosition)) {
             final PerformClick performClick = mPerformClick;
             performClick.mClickMotionPosition = motionPosition;
             performClick.rememberWindowAttachCount();
