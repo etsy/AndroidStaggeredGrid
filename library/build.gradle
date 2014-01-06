@@ -16,6 +16,9 @@ dependencies {
     compile 'com.android.support:support-v4:19.0.+'
 }
 
+version = VERSION_NAME
+group = GROUP
+
 android {
     compileSdkVersion 17
     buildToolsVersion "19"

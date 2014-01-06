@@ -12,6 +12,9 @@ repositories {
     mavenCentral()
 }
 
+version = VERSION_NAME
+group = GROUP
+
 android {
     compileSdkVersion 19
     buildToolsVersion "19"
