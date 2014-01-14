@@ -88,6 +88,7 @@ public abstract class ExtendableListView extends AbsListView {
     private int mLayoutMode;
 
     private int mTouchMode;
+    private int mScrollState = OnScrollListener.SCROLL_STATE_IDLE;
 
     // Rectangle used for hit testing children
     // private Rect mTouchFrame;
@@ -2004,8 +2005,8 @@ public abstract class ExtendableListView extends AbsListView {
     }
 
     void reportScrollStateChange(int newState) {
-        if (newState != mTouchMode) {
-            mTouchMode = newState;
+        if (newState != mScrollState) {
+            mScrollState = newState;
             if (mOnScrollListener != null) {
                 mOnScrollListener.onScrollStateChanged(this, newState);
             }
