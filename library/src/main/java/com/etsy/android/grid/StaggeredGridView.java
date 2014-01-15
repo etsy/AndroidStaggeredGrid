@@ -40,7 +40,7 @@ public class StaggeredGridView extends ExtendableListView {
     private static final String TAG = "StaggeredGridView";
     private static final boolean DBG = false;
 
-    private static final int DEFAUlT_COLUMNS_PORTRAIT = 2;
+    private static final int DEFAULT_COLUMNS_PORTRAIT = 2;
     private static final int DEFAULT_COLUMNS_LANDSCAPE = 3;
 
     private int mColumnCount;
@@ -48,7 +48,7 @@ public class StaggeredGridView extends ExtendableListView {
     private int mColumnWidth;
     private boolean mNeedSync;
 
-    private int mColumnCountPortrait = DEFAUlT_COLUMNS_PORTRAIT;
+    private int mColumnCountPortrait = DEFAULT_COLUMNS_PORTRAIT;
     private int mColumnCountLandscape = DEFAULT_COLUMNS_LANDSCAPE;
 
     /**
@@ -154,7 +154,7 @@ public class StaggeredGridView extends ExtendableListView {
 
             mColumnCountPortrait = typedArray.getInteger(
                     R.styleable.StaggeredGridView_column_count_portrait,
-                    DEFAUlT_COLUMNS_PORTRAIT);
+                    DEFAULT_COLUMNS_PORTRAIT);
             mColumnCountLandscape = typedArray.getInteger(
                     R.styleable.StaggeredGridView_column_count_landscape,
                     DEFAULT_COLUMNS_LANDSCAPE);
