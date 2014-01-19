@@ -1,9 +1,6 @@
 package com.etsy.android.sample;
 
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
@@ -15,6 +12,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.etsy.android.grid.util.DynamicHeightTextView;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /***
  * ADAPTER

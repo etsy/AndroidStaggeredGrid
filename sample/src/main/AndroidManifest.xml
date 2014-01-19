@@ -23,6 +23,7 @@
         </activity>
 
         <activity android:name=".StaggeredGridActivity"/>
+        <activity android:name=".StaggeredGridEmptyViewActivity" />
         <activity android:name=".ListViewActivity"/>
 
     </application>
