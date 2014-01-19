@@ -2033,6 +2033,12 @@ public abstract class ExtendableListView extends AbsListView {
                 setVisibility(View.VISIBLE);
             }
 
+            // We are now GONE, so pending layouts will not be dispatched.
+            // Force one here to make sure that the state of the list matches
+            // the state of the adapter.
+            if (mDataChanged) {
+                this.onLayout(false, getLeft(), getTop(), getRight(), getBottom());
+            }
         }
         else {
             if (emptyView != null) {
