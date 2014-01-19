@@ -17,30 +17,23 @@
 
 package com.etsy.android.grid;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.VelocityTracker;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.view.ViewParent;
+import android.view.*;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
+
+import java.util.ArrayList;
 
 /**
  * An extendable implementation of the Android {@link android.widget.ListView}
@@ -2018,6 +2011,36 @@ public abstract class ExtendableListView extends AbsListView {
         }
     }
 
+    /**
+     * Update the status of the list based on the empty parameter.  If empty is true and
+     * we have an empty view, display it.  In all the other cases, make sure that the listview
+     * is VISIBLE and that the empty view is GONE (if it's not null).
+     */
+    private void updateEmptyStatus() {
+        boolean empty = getAdapter() == null || getAdapter().isEmpty();
+        if (isInFilterMode()) {
+            empty = false;
+        }
+
+        View emptyView = getEmptyView();
+        if (empty) {
+            if (emptyView != null) {
+                emptyView.setVisibility(View.VISIBLE);
+                setVisibility(View.GONE);
+            }
+            else {
+                // If the caller just removed our empty view, make sure the list view is visible
+                setVisibility(View.VISIBLE);
+            }
+
+        }
+        else {
+            if (emptyView != null) {
+                emptyView.setVisibility(View.GONE);
+            }
+            setVisibility(View.VISIBLE);
+        }
+    }
 
     // //////////////////////////////////////////////////////////////////////////////////////////
     // ADAPTER OBSERVER
@@ -2045,6 +2068,8 @@ public abstract class ExtendableListView extends AbsListView {
             else {
                 rememberSyncState();
             }
+
+            updateEmptyStatus();
             requestLayout();
         }
 
@@ -2062,6 +2087,8 @@ public abstract class ExtendableListView extends AbsListView {
             mOldItemCount = mItemCount;
             mItemCount = 0;
             mNeedSync = false;
+
+            updateEmptyStatus();
             requestLayout();
         }
 
