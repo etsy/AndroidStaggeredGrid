@@ -624,7 +624,6 @@ public abstract class ExtendableListView extends AbsListView {
 
             mLayoutMode = LAYOUT_SYNC;
             mSyncPosition = Math.min(Math.max(0, mSyncPosition), count - 1);
-            if (mSyncPosition == 0) mLayoutMode = LAYOUT_FORCE_TOP;
             return;
         }
 
