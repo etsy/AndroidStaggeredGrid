@@ -50,6 +50,7 @@ public class SampleAdapter extends ArrayAdapter<String> {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+        sPositionHeightRatios.clear();
     }
 
     @Override

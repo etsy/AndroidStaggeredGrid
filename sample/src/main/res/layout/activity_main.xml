@@ -22,6 +22,15 @@
         android:text="Staggered Grid View with Empty View" />
 
     <Button
+        android:id="@+id/btn_sgv_dynamic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:layout_margin="16dp"
+        android:text="Staggered Grid View with dynamic column count" />
+    
+    <Button
         android:id="@+id/btn_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
