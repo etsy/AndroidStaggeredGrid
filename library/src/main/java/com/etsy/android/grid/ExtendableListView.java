@@ -228,7 +228,11 @@ public abstract class ExtendableListView extends AbsListView {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        if (getChildCount() > 0) {
+        onSizeChanged(w, h);
+    }
+
+    protected void onSizeChanged(int w, int h) {
+    	if (getChildCount() > 0) {
             mDataChanged = true;
             rememberSyncState();
         }
