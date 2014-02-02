@@ -212,17 +212,20 @@ public class StaggeredGridView extends ExtendableListView {
     public void setColumnCountPortrait(int columnCountPortrait) {
     	mColumnCountPortrait = columnCountPortrait;
     	onSizeChanged(getWidth(), getHeight());
+    	requestLayoutChildren();
     }
     
     public void setColumnCountLandscape(int columnCountLandscape) {
     	mColumnCountLandscape = columnCountLandscape;
     	onSizeChanged(getWidth(), getHeight());
+    	requestLayoutChildren();
     }
     
     public void setColumnCount(int columnCountPortrait, int columnCountLandscape) {
     	mColumnCountPortrait = columnCountPortrait;
     	mColumnCountLandscape = columnCountLandscape;
     	onSizeChanged(getWidth(), getHeight());
+    	requestLayoutChildren();
     }
 
     // //////////////////////////////////////////////////////////////////////////////////////////
@@ -334,6 +337,14 @@ public class StaggeredGridView extends ExtendableListView {
         }
         else {
             setPositionIsHeaderFooter(position);
+        }
+    }
+    
+    private void requestLayoutChildren() {
+        final int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            final View v = getChildAt(i);
+            if (v != null) v.requestLayout();
         }
     }
 
