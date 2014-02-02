@@ -237,12 +237,9 @@ public class StaggeredGridView extends ExtendableListView {
         if (mColumnLefts == null || mColumnLefts.length != mColumnCount) {
             mColumnLefts = new int[mColumnCount];
         }
-
-        for (int i = 0; i < mColumnCount; i++) {
-            mColumnLefts[i] = calculateColumnLeft(i);
-        }
+        initColumnTopsAndBottoms();
+        initColumnLefts();
     }
-
 
     @Override
     protected void onMeasureChild(final View child, final LayoutParams layoutParams) {
@@ -286,15 +283,11 @@ public class StaggeredGridView extends ExtendableListView {
             if (mColumnTops == null) {
                 mColumnTops = new int[mColumnCount];
             }
-            else {
-                Arrays.fill(mColumnTops, 0);
-            }
             if (mColumnBottoms == null) {
                 mColumnBottoms = new int[mColumnCount];
             }
-            else {
-                Arrays.fill(mColumnBottoms, 0);
-            }
+            initColumnTopsAndBottoms();
+
             mPositionData.clear();
             mNeedSync = false;
             mDistanceToTop = 0;
@@ -836,10 +829,9 @@ public class StaggeredGridView extends ExtendableListView {
 
             mDistanceToTop = 0;
 
-            // rebuild the column lefts
-            for (int i = 0; i < mColumnCount; i++) {
-                mColumnLefts[i] = calculateColumnLeft(i);
-            }
+            // rebuild the columns
+            initColumnTopsAndBottoms();
+            initColumnLefts();
 
             // if we have data
             if (getCount() > 0 && mPositionData.size() > 0) {
@@ -1011,6 +1003,18 @@ public class StaggeredGridView extends ExtendableListView {
         }
         return column;
     }
+
+    private void initColumnTopsAndBottoms() {
+        Arrays.fill(mColumnTops, getPaddingTop() + mGridPaddingTop);
+        Arrays.fill(mColumnBottoms, getPaddingTop() + mGridPaddingTop);
+    }
+
+    private void initColumnLefts() {
+        for (int i = 0; i < mColumnCount; i++) {
+            mColumnLefts[i] = calculateColumnLeft(i);
+        }
+    }
+
 
     // //////////////////////////////////////////////////////////////////////////////////////////
     // BOTTOM
