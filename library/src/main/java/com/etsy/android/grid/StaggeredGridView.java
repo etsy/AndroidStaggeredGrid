@@ -230,15 +230,16 @@ public class StaggeredGridView extends ExtendableListView {
 
         if (mColumnTops == null || mColumnTops.length != mColumnCount) {
             mColumnTops = new int[mColumnCount];
+            initColumnTops();
         }
         if (mColumnBottoms == null || mColumnBottoms.length != mColumnCount) {
             mColumnBottoms = new int[mColumnCount];
+            initColumnBottoms();
         }
         if (mColumnLefts == null || mColumnLefts.length != mColumnCount) {
             mColumnLefts = new int[mColumnCount];
+            initColumnLefts();
         }
-        initColumnTopsAndBottoms();
-        initColumnLefts();
     }
 
     @Override
@@ -1005,7 +1006,15 @@ public class StaggeredGridView extends ExtendableListView {
     }
 
     private void initColumnTopsAndBottoms() {
+        initColumnTops();
+        initColumnBottoms();
+    }
+
+    private void initColumnTops() {
         Arrays.fill(mColumnTops, getPaddingTop() + mGridPaddingTop);
+    }
+
+    private void initColumnBottoms() {
         Arrays.fill(mColumnBottoms, getPaddingTop() + mGridPaddingTop);
     }
 
