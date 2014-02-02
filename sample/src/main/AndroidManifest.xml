@@ -24,7 +24,6 @@
 
         <activity android:name=".StaggeredGridActivity"/>
         <activity android:name=".StaggeredGridEmptyViewActivity" />
-        <activity android:name=".StaggeredGridDynamicActivity" />
         <activity android:name=".ListViewActivity"/>
 
     </application>
