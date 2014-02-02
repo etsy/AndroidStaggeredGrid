@@ -1052,12 +1052,9 @@ public abstract class ExtendableListView extends AbsListView {
                 // Check to see if we have bumped into the scroll limit
                 View motionView = this.getChildAt(motionIndex);
                 if (motionView != null) {
-                    // Check if the top of the motion view is where it is
-                    // supposed to be
                     if (atEdge) {
-                        mTouchMode = TOUCH_MODE_DONE_WAITING;
+                        // TODO : edge effect & overscroll
                     }
-
                     mMotionY = y;
                 }
                 mLastY = y;
