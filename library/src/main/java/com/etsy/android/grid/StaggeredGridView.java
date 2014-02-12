@@ -1244,6 +1244,7 @@ public class StaggeredGridView extends ExtendableListView {
         GridListSavedState ss = (GridListSavedState) state;
         mColumnCount = ss.columnCount;
         mColumnTops = ss.columnTops;
+        mColumnBottoms = new int[mColumnCount];
         mPositionData = ss.positionData;
         mNeedSync = true;
         super.onRestoreInstanceState(ss);
