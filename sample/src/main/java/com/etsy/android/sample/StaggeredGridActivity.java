@@ -63,7 +63,6 @@ public class StaggeredGridActivity extends Activity implements AbsListView.OnScr
 
         mGridView.setAdapter(mAdapter);
         mGridView.setOnScrollListener(this);
-
         mGridView.setOnItemClickListener(this);
     }
 
