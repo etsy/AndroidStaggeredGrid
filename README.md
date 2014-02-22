@@ -28,8 +28,11 @@ The library was built for and tested on Android version 2.3.3(SDK 10) and above.
 The simplest way to use AndroidStaggeredGrid is to add the library as a gradle aar dependency to your build. See the [CHANGELOG.md](https://github.com/etsy/AndroidStaggeredGrid/blob/master/CHANGELOG.md) for the latest version number.
 
 ```
-dependencies {
+repositories {
     mavenCentral()
+}
+
+dependencies {
     compile 'com.etsy.android.grid:library:x.x.x' // see changelog
 }
 ```
