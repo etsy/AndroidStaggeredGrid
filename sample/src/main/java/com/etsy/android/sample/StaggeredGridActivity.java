@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -60,12 +62,32 @@ public class StaggeredGridActivity extends Activity implements AbsListView.OnScr
         }
 
         mGridView.setAdapter(mAdapter);
-
         mGridView.setOnScrollListener(this);
-
         mGridView.setOnItemClickListener(this);
     }
 
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_sgv_dynamic, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.col1:
+				mGridView.setColumnCount(1);
+				break;
+			case R.id.col2:
+				mGridView.setColumnCount(2);
+				break;
+			case R.id.col3:
+				mGridView.setColumnCount(3);
+				break;
+		}
+		return true;
+	}
+	
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);

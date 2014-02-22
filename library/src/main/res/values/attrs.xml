@@ -2,6 +2,7 @@
 <resources>
 
     <declare-styleable name="StaggeredGridView">
+        <attr name="column_count" format="integer" />
         <attr name="column_count_portrait" format="integer" />
         <attr name="column_count_landscape" format="integer" />
         <attr name="item_margin" format="dimension" />

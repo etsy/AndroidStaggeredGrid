@@ -152,12 +152,21 @@ public class StaggeredGridView extends ExtendableListView {
             // get the number of columns in portrait and landscape
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StaggeredGridView, defStyle, 0);
 
-            mColumnCountPortrait = typedArray.getInteger(
-                    R.styleable.StaggeredGridView_column_count_portrait,
-                    DEFAULT_COLUMNS_PORTRAIT);
-            mColumnCountLandscape = typedArray.getInteger(
-                    R.styleable.StaggeredGridView_column_count_landscape,
-                    DEFAULT_COLUMNS_LANDSCAPE);
+            mColumnCount = typedArray.getInteger(
+                    R.styleable.StaggeredGridView_column_count, 0);
+
+            if (mColumnCount > 0) {
+                mColumnCountPortrait = mColumnCount;
+                mColumnCountLandscape = mColumnCount;
+            }
+            else {
+                mColumnCountPortrait = typedArray.getInteger(
+                        R.styleable.StaggeredGridView_column_count_portrait,
+                        DEFAULT_COLUMNS_PORTRAIT);
+                mColumnCountLandscape = typedArray.getInteger(
+                        R.styleable.StaggeredGridView_column_count_landscape,
+                        DEFAULT_COLUMNS_LANDSCAPE);
+            }
 
             mItemMargin = typedArray.getDimensionPixelSize(
                     R.styleable.StaggeredGridView_item_margin, 0);
@@ -207,6 +216,26 @@ public class StaggeredGridView extends ExtendableListView {
         mGridPaddingTop = top;
         mGridPaddingRight = right;
         mGridPaddingBottom = bottom;
+    }
+    
+    public void setColumnCountPortrait(int columnCountPortrait) {
+    	mColumnCountPortrait = columnCountPortrait;
+    	onSizeChanged(getWidth(), getHeight());
+    	requestLayoutChildren();
+    }
+    
+    public void setColumnCountLandscape(int columnCountLandscape) {
+    	mColumnCountLandscape = columnCountLandscape;
+    	onSizeChanged(getWidth(), getHeight());
+    	requestLayoutChildren();
+    }
+    
+    public void setColumnCount(int columnCount) {
+    	mColumnCountPortrait = columnCount;
+    	mColumnCountLandscape = columnCount;
+        // mColumnCount set onSizeChanged();
+    	onSizeChanged(getWidth(), getHeight());
+    	requestLayoutChildren();
     }
 
     // //////////////////////////////////////////////////////////////////////////////////////////
@@ -312,6 +341,14 @@ public class StaggeredGridView extends ExtendableListView {
         }
         else {
             setPositionIsHeaderFooter(position);
+        }
+    }
+    
+    private void requestLayoutChildren() {
+        final int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            final View v = getChildAt(i);
+            if (v != null) v.requestLayout();
         }
     }
 
@@ -817,7 +854,13 @@ public class StaggeredGridView extends ExtendableListView {
     @Override
     protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        boolean isLandscape = w > h;
+        onSizeChanged(w, h);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h) {
+    	super.onSizeChanged(w, h);
+    	boolean isLandscape = w > h;
         int newColumnCount = isLandscape ? mColumnCountLandscape : mColumnCountPortrait;
         if (mColumnCount != newColumnCount) {
             mColumnCount = newColumnCount;

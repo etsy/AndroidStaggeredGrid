@@ -48,11 +48,6 @@ public class SampleAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-    }
-
-    @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
         ViewHolder vh;
