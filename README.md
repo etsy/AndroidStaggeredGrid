@@ -53,6 +53,7 @@ Usage
 
 1. Add the `StaggeredGridView` to the layout you want to show.
     ```xml
+
         <com.etsy.android.grid.StaggeredGridView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
