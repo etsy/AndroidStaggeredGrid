@@ -53,23 +53,18 @@ Usage
 
 1. Add the `StaggeredGridView` to the layout you want to show.
     ```xml
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    
         <com.etsy.android.grid.StaggeredGridView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/grid_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:item_margin="8dp"
-            app:column_count_portrait="2"
-            app:column_count_landscape="3" />
-    
-    </FrameLayout>
+            app:column_count="@integer/column_count" />
     ```
 2. Configure attributes.
  * `item_margin` - The margin around each grid item (default 0dp).
+ * `column_count` - The number of columns displayed. Will override column_count_portrait and column_count_landscape if present (default 0)
  * `column_count_portrait` - The number of columns displayed when the grid is in portrait (default 2).
  * `column_count_landscape` - The number of columns displayed when the grid is in landscape (default 3).
  * `grid_paddingLeft` - Padding to the left of the grid. Does not apply to headers and footers (default 0).
