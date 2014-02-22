@@ -1,6 +1,18 @@
 Change Log
 ===============================================================================
 
+Version 1.0.4 (2014-02-22)
+----------------------------
+
+ * Added column_count attribute #32
+ * Added setColumnCount() methods to support dynamically changing columns #26
+ * Added empty view support to ExtendableListView #33
+ * Fixed grid_paddingTop and paddingTop being ignored #20
+ * Fixed ArrayIndexOutOfBoundsException fix #52
+ * Fixed Unintentional onClick event on scroll down #42
+ * Fixed onScrollStateChanged never get called #18
+ * Fixed notifyDataSetChanged sync bug when mFirstPosition = 0 #22
+
 Version 1.0.3 (2014-01-06)
 ----------------------------
 
