@@ -231,9 +231,9 @@ public class StaggeredGridView extends ExtendableListView {
     }
     
     public void setColumnCount(int columnCount) {
-        mColumnCount = columnCount;
     	mColumnCountPortrait = columnCount;
     	mColumnCountLandscape = columnCount;
+        // mColumnCount set onSizeChanged();
     	onSizeChanged(getWidth(), getHeight());
     	requestLayoutChildren();
     }
