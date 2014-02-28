@@ -705,8 +705,13 @@ public abstract class ExtendableListView extends AbsListView {
                 break;
 
             case MotionEvent.ACTION_UP:
-            default:
                 handled = onTouchUp(event);
+                break;
+            // The default case sholud not execute the onTouchUp(), it may cause wrong action,
+            // for example, when user use two fingers to touch a item, it will receive a
+            // ACTION_POINTER_DOWN event, which should not trigger onTouchUp().
+            default:
+                handled = true;
                 break;
         }
 
