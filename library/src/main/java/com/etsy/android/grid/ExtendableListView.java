@@ -265,7 +265,15 @@ public abstract class ExtendableListView extends AbsListView {
         }
 
         mDataChanged = true;
-        mItemCount = adapter != null ? adapter.getCount() : 0;
+       // mItemCount = adapter != null ? adapter.getCount() : 0;
+
+       if (adapter != null)
+           {
+		   mItemCount = adapter.getCount();
+		   }
+		   else {
+			mItemCount = 0;
+			}
 
         if (adapter != null) {
             adapter.registerDataSetObserver(mObserver);
@@ -2184,6 +2192,7 @@ public abstract class ExtendableListView extends AbsListView {
 
         public void setViewTypeCount(int viewTypeCount) {
             if (viewTypeCount < 1) {
+				assert (viewTypeCount < 2) ;
                 throw new IllegalArgumentException("Can't have a viewTypeCount < 1");
             }
             //noinspection unchecked
@@ -2198,6 +2207,7 @@ public abstract class ExtendableListView extends AbsListView {
 
         public void markChildrenDirty() {
             if (mViewTypeCount == 1) {
+				assert (mViewTypeCount > 0);
                 final ArrayList<View> scrap = mCurrentScrap;
                 final int scrapCount = scrap.size();
                 for (int i = 0; i < scrapCount; i++) {
