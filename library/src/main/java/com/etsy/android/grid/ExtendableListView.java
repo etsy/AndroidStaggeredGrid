@@ -265,7 +265,7 @@ public abstract class ExtendableListView extends AbsListView {
         }
 
         mDataChanged = true;
-        mItemCount = adapter != null ? adapter.getCount() : 0;
+        mItemCount = mAdapter != null ? mAdapter.getCount() : 0;
 
         if (adapter != null) {
             adapter.registerDataSetObserver(mObserver);
