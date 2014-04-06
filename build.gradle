@@ -2,9 +2,8 @@ buildscript {
     repositories {
         mavenCentral()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.0'
+        classpath 'com.android.tools.build:gradle:0.9.+'
     }
 }
 
@@ -13,8 +12,6 @@ def isReleaseBuild() {
 }
 
 allprojects {
-
-
     repositories {
         mavenCentral()
     }
