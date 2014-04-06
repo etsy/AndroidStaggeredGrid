@@ -26,5 +26,6 @@ android {
 }
 
 dependencies {
+    compile 'com.android.support:support-v4:19.+'
     compile project(':library')
 }
