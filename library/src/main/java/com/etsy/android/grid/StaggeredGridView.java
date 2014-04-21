@@ -922,8 +922,13 @@ public class StaggeredGridView extends ExtendableListView {
         if (DBG) Log.d(TAG, "onColumnSync column width:" + mColumnWidth);
 
         for (int pos = 0; pos < syncPosition; pos++) {
+            //Check for weirdness again
+            final Double heightRatio = positionHeightRatios.get(pos);
+            if(heightRatio == null){
+                break;
+            }
+
             final GridItemRecord rec = getOrCreateRecord(pos);
-            final double heightRatio = positionHeightRatios.get(pos);
             final int height = (int) (mColumnWidth * heightRatio);
             rec.heightRatio = heightRatio;
 
