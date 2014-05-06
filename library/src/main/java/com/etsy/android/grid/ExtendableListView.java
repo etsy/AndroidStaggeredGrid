@@ -20,6 +20,7 @@ package com.etsy.android.grid;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.SparseArrayCompat;
@@ -138,6 +139,33 @@ public abstract class ExtendableListView extends AbsListView {
 
     protected boolean mClipToPadding;
     private PerformClick mPerformClick;
+    
+    private Runnable mPendingCheckForTap;
+    private CheckForLongPress mPendingCheckForLongPress;
+
+    private class CheckForLongPress extends WindowRunnnable implements Runnable {
+        public void run() {
+            final int motionPosition = mMotionPosition;
+            final View child = getChildAt(motionPosition);
+            if (child != null) {
+                final int longPressPosition = mMotionPosition;
+                final long longPressId = mAdapter.getItemId(mMotionPosition + mFirstPosition);
+
+                boolean handled = false;
+                if (sameWindow() && !mDataChanged) {
+                    handled = performLongPress(child, longPressPosition + mFirstPosition, longPressId);
+                }
+                if (handled) {
+                    mTouchMode = TOUCH_MODE_IDLE;
+                    setPressed(false);
+                    child.setPressed(false);
+                } else {
+                    mTouchMode = TOUCH_MODE_DONE_WAITING;
+                }
+
+            }
+        }
+    }
 
     /**
      * A class that represents a fixed view in a list, for example a header at the top
@@ -806,6 +834,39 @@ public abstract class ExtendableListView extends AbsListView {
         super.requestDisallowInterceptTouchEvent(disallowIntercept);
     }
 
+    final class CheckForTap implements Runnable {
+        public void run() {
+            if (mTouchMode == TOUCH_MODE_DOWN) {
+                mTouchMode = TOUCH_MODE_TAP;
+                final View child = getChildAt(mMotionPosition);
+                if (child != null && !child.hasFocusable()) {
+                    mLayoutMode = LAYOUT_NORMAL;
+
+                    if (!mDataChanged) {
+                        layoutChildren();
+                        child.setPressed(true);
+                        setPressed(true);
+
+                        final int longPressTimeout = ViewConfiguration.getLongPressTimeout();
+                        final boolean longClickable = isLongClickable();
+
+                        if (longClickable) {
+                            if (mPendingCheckForLongPress == null) {
+                                mPendingCheckForLongPress = new CheckForLongPress();
+                            }
+                            mPendingCheckForLongPress.rememberWindowAttachCount();
+                            postDelayed(mPendingCheckForLongPress, longPressTimeout);
+                        } else {
+                            mTouchMode = TOUCH_MODE_DONE_WAITING;
+                        }
+                    } else {
+                        mTouchMode = TOUCH_MODE_DONE_WAITING;
+                    }
+                }
+            }
+        }
+    }
+    
     private boolean onTouchDown(final MotionEvent event) {
         final int x = (int) event.getX();
         final int y = (int) event.getY();
@@ -825,7 +886,10 @@ public abstract class ExtendableListView extends AbsListView {
             // is it a tap or a scroll .. we don't know yet!
             mTouchMode = TOUCH_MODE_DOWN;
 
-            // TODO : add handling for a click removed from here
+            if (mPendingCheckForTap == null) {
+                mPendingCheckForTap = new CheckForTap();
+            }
+            postDelayed(mPendingCheckForTap, ViewConfiguration.getTapTimeout());
 
             if (event.getEdgeFlags() != 0 && motionPosition < 0) {
                 // If we couldn't find a view to click on, but the down event was touching
@@ -885,6 +949,12 @@ public abstract class ExtendableListView extends AbsListView {
         mTouchMode = TOUCH_MODE_IDLE;
         setPressed(false);
         invalidate(); // redraw selector
+        final Handler handler = getHandler();
+        
+        if (handler != null) {
+            handler.removeCallbacks(mPendingCheckForLongPress);
+        }
+        
         recycleVelocityTracker();
         mActivePointerId = INVALID_POINTER;
         return true;
@@ -903,7 +973,14 @@ public abstract class ExtendableListView extends AbsListView {
 
         setPressed(false);
         invalidate(); // redraw selector
+        
+        final Handler handler = getHandler();
+        if (handler != null) {
+            handler.removeCallbacks(mPendingCheckForLongPress);
+        }
+        
         recycleVelocityTracker();
+        
         mActivePointerId = INVALID_POINTER;
         return true;
     }
@@ -939,17 +1016,56 @@ public abstract class ExtendableListView extends AbsListView {
     }
 
     private boolean onTouchUpTap(final MotionEvent event) {
-        if (mPerformClick == null) {
-            invalidate();
-            mPerformClick = new PerformClick();
-        }
         final int motionPosition = mMotionPosition;
-        if (!mDataChanged && motionPosition >= 0 && mAdapter.isEnabled(motionPosition)) {
+        final View child = getChildAt(motionPosition);
+        if (child != null && !child.hasFocusable()) {
+            if (mTouchMode != TOUCH_MODE_DOWN) {
+                child.setPressed(false);
+            }
+
+            if (mPerformClick == null) {
+                invalidate();
+                mPerformClick = new PerformClick();
+            }
+
             final PerformClick performClick = mPerformClick;
             performClick.mClickMotionPosition = motionPosition;
             performClick.rememberWindowAttachCount();
-            performClick.run();
+
+//            mResurrectToPosition = motionPosition;
+
+            if (mTouchMode == TOUCH_MODE_DOWN || mTouchMode == TOUCH_MODE_TAP) {
+                final Handler handler = getHandler();
+                if (handler != null) {
+                    handler.removeCallbacks(mTouchMode == TOUCH_MODE_DOWN ?
+                            mPendingCheckForTap : mPendingCheckForLongPress);
+                }
+                mLayoutMode = LAYOUT_NORMAL;
+                if (!mDataChanged && mAdapter.isEnabled(motionPosition)) {
+                    mTouchMode = TOUCH_MODE_TAP;
+                    layoutChildren();
+                    child.setPressed(true);
+                    setPressed(true);
+                    postDelayed(new Runnable() {
+                        public void run() {
+                            child.setPressed(false);
+                            setPressed(false);
+                            if (!mDataChanged) {
+                                post(performClick);
+                            }
+                            mTouchMode = TOUCH_MODE_IDLE;
+                        }
+                    }, ViewConfiguration.getPressedStateDuration());
+                } else {
+                    mTouchMode = TOUCH_MODE_IDLE;
+                }
+                return true;
+            } else if (!mDataChanged && mAdapter.isEnabled(motionPosition)) {
+                post(performClick);
+            }
         }
+        mTouchMode = TOUCH_MODE_IDLE;
+
         return true;
     }
 
@@ -1005,7 +1121,10 @@ public abstract class ExtendableListView extends AbsListView {
                 mMotionCorrection = deltaY > 0 ? mTouchSlop : -mTouchSlop;
             }
 
-            // TODO : LONG PRESS
+            final Handler handler = getHandler();
+            if (handler != null) {
+                handler.removeCallbacks(mPendingCheckForLongPress);
+            }
             setPressed(false);
             View motionView = getChildAt(mMotionPosition - mFirstPosition);
             if (motionView != null) {
@@ -2741,11 +2860,30 @@ public abstract class ExtendableListView extends AbsListView {
                 final View view = getChildAt(motionPosition); // a fix by @pboos
 
                 if (view != null) {
-                    performItemClick(view, motionPosition + mFirstPosition, adapter.getItemId(motionPosition));
+                    performItemClick(view, motionPosition + mFirstPosition, adapter.getItemId(motionPosition + mFirstPosition));
                 }
             }
         }
     }
+    
+    private boolean performLongPress(final View child,
+            final int longPressPosition, final long longPressId) {
+        boolean handled = false;
+
+        OnItemLongClickListener onItemLongClickListener = getOnItemLongClickListener();
+        if (onItemLongClickListener != null) {
+            handled = onItemLongClickListener.onItemLongClick(ExtendableListView.this, child,
+                    longPressPosition, longPressId);
+        }
+//        if (!handled) {
+//            mContextMenuInfo = createContextMenuInfo(child, longPressPosition, longPressId);
+//            handled = super.showContextMenuForChild(AbsListView.this);
+//        }
+        if (handled) {
+            performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+        }
+        return handled;
+    }    
 
     /**
      * A base class for Runnables that will check that their view is still attached to
