@@ -528,6 +528,7 @@ public abstract class ExtendableListView extends AbsListView {
 
             if (mAdapter == null) {
                 clearState();
+                invokeOnItemScrollListener();
                 return;
             }
 
@@ -551,6 +552,7 @@ public abstract class ExtendableListView extends AbsListView {
             // and calling it a day
             if (mItemCount == 0) {
                 clearState();
+                invokeOnItemScrollListener();
                 return;
             }
             else if (mItemCount != mAdapter.getCount()) {
@@ -613,6 +615,7 @@ public abstract class ExtendableListView extends AbsListView {
             mDataChanged = false;
             mNeedSync = false;
             mLayoutMode = LAYOUT_NORMAL;
+            invokeOnItemScrollListener();
         } finally {
             mBlockLayoutRequests = false;
         }
