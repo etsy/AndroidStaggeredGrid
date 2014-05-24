@@ -1,6 +1,18 @@
 Change Log
 ===============================================================================
 
+Version 1.0.5 (2014-04-24)
+----------------------------
+
+ * Fixed OnScrollListener issue after updating contents #100
+ * Fixed LayoutParams casting issue when recycling state #102
+ * Fixed the onClick item id #86
+ * Fixed bug that the default case on Touch event #67
+ * Fixed for "NPE onSizeChanged" #41 PR #91
+ * Added guard against issue #45
+ * Fixed setAdapter bug #86 #85
+ * Using newest build tools and libraries - #78 #96
+
 Version 1.0.4 (2014-02-22)
 ----------------------------
 
