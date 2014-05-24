@@ -2596,9 +2596,10 @@ public abstract class ExtendableListView extends AbsListView {
         if (infos == null) return;
         for (FixedViewInfo info : infos) {
             final View child = info.view;
-            final LayoutParams p = (LayoutParams) child.getLayoutParams();
-            if (p != null) {
-                p.recycledHeaderFooter = false;
+            final ViewGroup.LayoutParams p = child.getLayoutParams();
+
+            if (p instanceof LayoutParams) {
+                ((LayoutParams) p).recycledHeaderFooter = false;
             }
         }
     }
