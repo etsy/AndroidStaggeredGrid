@@ -41,8 +41,8 @@ Alternatively import the `/library` project into your Android Studio project and
 
 The library is currently configured to be built via Gradle only. It has the following dependencies:
 
- * Android Gradle plugin v0.7.3 - `com.android.tools.build:gradle:0.9.2`
- * Android Support Library v19 - `com.android.support:support-v4:19.1.+`
+ * Android Gradle plugin v0.9.2 - `com.android.tools.build:gradle:0.9.2`
+ * Android Support Library v19.1 - `com.android.support:support-v4:19.1.+`
 
 Still use Eclipse/building with Ant? You can still use AndroidStaggeredGrid, it's just a few extra steps (left up to the reader).
 
