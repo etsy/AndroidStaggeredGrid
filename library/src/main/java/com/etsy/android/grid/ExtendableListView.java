@@ -2744,7 +2744,7 @@ public abstract class ExtendableListView extends AbsListView {
                 final View view = getChildAt(motionPosition); // a fix by @pboos
 
                 if (view != null) {
-                    performItemClick(view, motionPosition + mFirstPosition, adapter.getItemId(motionPosition));
+                    performItemClick(view, motionPosition + mFirstPosition, adapter.getItemId(motionPosition + mFirstPosition));
                 }
             }
         }
