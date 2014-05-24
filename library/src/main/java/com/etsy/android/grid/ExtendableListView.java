@@ -705,8 +705,11 @@ public abstract class ExtendableListView extends AbsListView {
                 break;
 
             case MotionEvent.ACTION_UP:
-            default:
                 handled = onTouchUp(event);
+                break;
+
+            default:
+                handled = false;
                 break;
         }
 
