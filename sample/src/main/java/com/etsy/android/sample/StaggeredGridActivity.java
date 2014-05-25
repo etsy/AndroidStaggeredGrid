@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
 
-public class StaggeredGridActivity extends Activity implements AbsListView.OnScrollListener, AbsListView.OnItemClickListener {
+public class StaggeredGridActivity extends Activity implements AbsListView.OnScrollListener, AbsListView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private static final String TAG = "StaggeredGridActivity";
     public static final String SAVED_DATA_KEY = "SAVED_DATA";
@@ -64,6 +64,7 @@ public class StaggeredGridActivity extends Activity implements AbsListView.OnScr
         mGridView.setAdapter(mAdapter);
         mGridView.setOnScrollListener(this);
         mGridView.setOnItemClickListener(this);
+        mGridView.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -130,5 +131,12 @@ public class StaggeredGridActivity extends Activity implements AbsListView.OnScr
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Toast.makeText(this, "Item Clicked: " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        Toast.makeText(this, "Item Long Clicked: " + position, Toast.LENGTH_SHORT).show();
+        return true;
     }
 }
