@@ -1017,51 +1017,53 @@ public abstract class ExtendableListView extends AbsListView {
 
     private boolean onTouchUpTap(final MotionEvent event) {
         final int motionPosition = mMotionPosition;
-        final View child = getChildAt(motionPosition);
-        if (child != null && !child.hasFocusable()) {
-            if (mTouchMode != TOUCH_MODE_DOWN) {
-                child.setPressed(false);
-            }
-
-            if (mPerformClick == null) {
-                invalidate();
-                mPerformClick = new PerformClick();
-            }
-
-            final PerformClick performClick = mPerformClick;
-            performClick.mClickMotionPosition = motionPosition;
-            performClick.rememberWindowAttachCount();
-
-//            mResurrectToPosition = motionPosition;
-
-            if (mTouchMode == TOUCH_MODE_DOWN || mTouchMode == TOUCH_MODE_TAP) {
-                final Handler handler = getHandler();
-                if (handler != null) {
-                    handler.removeCallbacks(mTouchMode == TOUCH_MODE_DOWN ?
-                            mPendingCheckForTap : mPendingCheckForLongPress);
+        if (motionPosition >= 0) {
+            final View child = getChildAt(motionPosition);
+            if (child != null && !child.hasFocusable()) {
+                if (mTouchMode != TOUCH_MODE_DOWN) {
+                    child.setPressed(false);
                 }
-                mLayoutMode = LAYOUT_NORMAL;
-                if (!mDataChanged && mAdapter.isEnabled(motionPosition)) {
-                    mTouchMode = TOUCH_MODE_TAP;
-                    layoutChildren();
-                    child.setPressed(true);
-                    setPressed(true);
-                    postDelayed(new Runnable() {
-                        public void run() {
-                            child.setPressed(false);
-                            setPressed(false);
-                            if (!mDataChanged) {
-                                post(performClick);
+    
+                if (mPerformClick == null) {
+                    invalidate();
+                    mPerformClick = new PerformClick();
+                }
+    
+                final PerformClick performClick = mPerformClick;
+                performClick.mClickMotionPosition = motionPosition;
+                performClick.rememberWindowAttachCount();
+    
+    //            mResurrectToPosition = motionPosition;
+    
+                if (mTouchMode == TOUCH_MODE_DOWN || mTouchMode == TOUCH_MODE_TAP) {
+                    final Handler handler = getHandler();
+                    if (handler != null) {
+                        handler.removeCallbacks(mTouchMode == TOUCH_MODE_DOWN ?
+                                mPendingCheckForTap : mPendingCheckForLongPress);
+                    }
+                    mLayoutMode = LAYOUT_NORMAL;
+                    if (!mDataChanged && motionPosition >= 0 && mAdapter.isEnabled(motionPosition)) {
+                        mTouchMode = TOUCH_MODE_TAP;
+                        layoutChildren();
+                        child.setPressed(true);
+                        setPressed(true);
+                        postDelayed(new Runnable() {
+                            public void run() {
+                                child.setPressed(false);
+                                setPressed(false);
+                                if (!mDataChanged) {
+                                    post(performClick);
+                                }
+                                mTouchMode = TOUCH_MODE_IDLE;
                             }
-                            mTouchMode = TOUCH_MODE_IDLE;
-                        }
-                    }, ViewConfiguration.getPressedStateDuration());
-                } else {
-                    mTouchMode = TOUCH_MODE_IDLE;
+                        }, ViewConfiguration.getPressedStateDuration());
+                    } else {
+                        mTouchMode = TOUCH_MODE_IDLE;
+                    }
+                    return true;
+                } else if (!mDataChanged && motionPosition >= 0 && mAdapter.isEnabled(motionPosition)) {
+                    post(performClick);
                 }
-                return true;
-            } else if (!mDataChanged && mAdapter.isEnabled(motionPosition)) {
-                post(performClick);
             }
         }
         mTouchMode = TOUCH_MODE_IDLE;
