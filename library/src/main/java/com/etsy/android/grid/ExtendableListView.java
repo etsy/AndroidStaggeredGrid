@@ -272,6 +272,7 @@ public abstract class ExtendableListView extends AbsListView {
             mRecycleBin.setViewTypeCount(mAdapter.getViewTypeCount());
         }
 
+        updateEmptyStatus();
         requestLayout();
     }
 
