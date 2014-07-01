@@ -1,4 +1,4 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 dependencies {
     compile 'com.android.support:support-v4:19.1.+'
@@ -20,4 +20,4 @@ android {
     }
 }
 
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+apply from: 'https://raw.githubusercontent.com/denizmveli/gradle-mvn-push/master/gradle-mvn-push.gradle'
