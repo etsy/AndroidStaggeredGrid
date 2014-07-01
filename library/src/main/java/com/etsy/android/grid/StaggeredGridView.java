@@ -243,7 +243,7 @@ public class StaggeredGridView extends ExtendableListView {
     // MEASUREMENT
     //
     private boolean isLandscape() {
-        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? true : false;
+        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     @Override
