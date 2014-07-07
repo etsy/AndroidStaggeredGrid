@@ -90,8 +90,6 @@ TODO
 
 The `StaggeredGridView` does not support the following:
 
- * Item selector drawables
- * Item long press event
  * Scroll bars
  * Row dividers
  * Edge effect
