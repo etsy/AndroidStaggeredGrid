@@ -2931,19 +2931,19 @@ public abstract class ExtendableListView extends AbsListView {
 
                 if (view != null) {
                     final int clickPosition = motionPosition + mFirstPosition;
-                    tmp = new ExtendableListViewContextMenuInfo(view, clickPosition, adapter.getItemId(clickPosition));
+                    tmp = new AdapterContextMenuInfo(view, clickPosition, adapter.getItemId(clickPosition));
                 }
             }
     	}
     	return tmp;
     }
     
-    public static class ExtendableListViewContextMenuInfo implements ContextMenuInfo{
+    public static class AdapterContextMenuInfo implements ContextMenuInfo{
     	public View targetView;
 		public int position;
 		public long id;
 
-		public ExtendableListViewContextMenuInfo(View targetView, int position, long id){
+		public AdapterContextMenuInfo(View targetView, int position, long id){
     		this.targetView = targetView;
     		this.position = position;
     		this.id = id;
