@@ -2919,9 +2919,9 @@ public abstract class ExtendableListView extends AbsListView {
     }
     
     @Override
-    protected ContextMenuInfo getContextMenuInfo(){
-    	ContextMenuInfo tmp = super.getContextMenuInfo();
-    	if(tmp==null){
+    protected ContextMenuInfo getContextMenuInfo(){ // added by v-b-r
+    	ContextMenuInfo menuInfo = super.getContextMenuInfo();
+    	if(menuInfo==null){
     		final ListAdapter adapter = mAdapter;
 			final int motionPosition = mPerformClick.mClickMotionPosition;
             if (adapter != null && mItemCount > 0 &&
@@ -2931,22 +2931,10 @@ public abstract class ExtendableListView extends AbsListView {
 
                 if (view != null) {
                     final int clickPosition = motionPosition + mFirstPosition;
-                    tmp = new AdapterContextMenuInfo(view, clickPosition, adapter.getItemId(clickPosition));
+                    menuInfo = new AdapterContextMenuInfo(view, clickPosition, adapter.getItemId(clickPosition));
                 }
             }
     	}
-    	return tmp;
-    }
-    
-    public static class AdapterContextMenuInfo implements ContextMenuInfo{
-    	public View targetView;
-		public int position;
-		public long id;
-
-		public AdapterContextMenuInfo(View targetView, int position, long id){
-    		this.targetView = targetView;
-    		this.position = position;
-    		this.id = id;
-    	}
+    	return menuInfo;
     }
 }
