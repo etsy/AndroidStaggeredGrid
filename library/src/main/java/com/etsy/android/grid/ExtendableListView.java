@@ -213,6 +213,10 @@ public abstract class ExtendableListView extends AbsListView {
         mLayoutMode = LAYOUT_NORMAL;
     }
 
+    @Override
+    public boolean showContextMenuForChild(View originalView) {
+    	return false;
+    }
 
     // //////////////////////////////////////////////////////////////////////////////////////////
     // MAINTAINING SOME STATE
