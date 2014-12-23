@@ -1048,7 +1048,7 @@ public abstract class ExtendableListView extends AbsListView {
                                 mPendingCheckForTap : mPendingCheckForLongPress);
                     }
                     mLayoutMode = LAYOUT_NORMAL;
-                    if (!mDataChanged && motionPosition >= 0 && mAdapter.isEnabled(motionPosition)) {
+                    if (!mDataChanged && motionPosition >= 0 && mAdapter.isEnabled(motionPosition + mFirstPosition)) {
                         mTouchMode = TOUCH_MODE_TAP;
                         layoutChildren();
                         child.setPressed(true);
