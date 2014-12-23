@@ -1297,7 +1297,7 @@ public abstract class ExtendableListView extends AbsListView {
             }
             for (int i = 0; i < childCount; i++) {
                 final View child = getChildAt(i);
-                if (child.getBottom() >= top) {
+                if (child.getBottom() >= top || i + firstPosition + 2 >= footerViewsStart) {
                     break;
                 }
                 else {
