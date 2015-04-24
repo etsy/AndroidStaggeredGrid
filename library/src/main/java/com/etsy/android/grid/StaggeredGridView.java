@@ -259,6 +259,7 @@ public class StaggeredGridView extends ExtendableListView {
         // minus it's padding
         // minus the total items margin
         // divided by the number of columns
+        int previousColumnWidth = mColumnWidth;
         mColumnWidth = calculateColumnWidth(getMeasuredWidth());
 
         if (mColumnTops == null || mColumnTops.length != mColumnCount) {
@@ -269,7 +270,7 @@ public class StaggeredGridView extends ExtendableListView {
             mColumnBottoms = new int[mColumnCount];
             initColumnBottoms();
         }
-        if (mColumnLefts == null || mColumnLefts.length != mColumnCount) {
+        if (mColumnWidth != previousColumnWidth || mColumnLefts == null || mColumnLefts.length != mColumnCount) {
             mColumnLefts = new int[mColumnCount];
             initColumnLefts();
         }
