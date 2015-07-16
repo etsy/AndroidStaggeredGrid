@@ -43,6 +43,7 @@ public class StaggeredGridView extends ExtendableListView {
 
     private static final int DEFAULT_COLUMNS_PORTRAIT = 2;
     private static final int DEFAULT_COLUMNS_LANDSCAPE = 3;
+    private int mAddItemMode;
 
     private int mColumnCount;
     private int mItemMargin;
@@ -179,6 +180,8 @@ public class StaggeredGridView extends ExtendableListView {
                     R.styleable.StaggeredGridView_grid_paddingTop, 0);
             mGridPaddingBottom = typedArray.getDimensionPixelSize(
                     R.styleable.StaggeredGridView_grid_paddingBottom, 0);
+            mAddItemMode = typedArray.getInt(
+                    R.styleable.StaggeredGridView_addItemMode, 0);
 
             typedArray.recycle();
         }
@@ -1046,12 +1049,21 @@ public class StaggeredGridView extends ExtendableListView {
             // if we're going down -
             // get the highest positioned (lowest value)
             // column bottom
-            if (flowDown) {
-                column = getHighestPositionedBottomColumn();
-            }
-            else {
-                column = getLowestPositionedTopColumn();
-
+            switch (mAddItemMode) {
+                case 0:
+                default:
+                    if (flowDown) {
+                        column = getHighestPositionedBottomColumn();
+                    } else {
+                        column = getLowestPositionedTopColumn();
+                    }
+                    break;
+                case 1:
+                    column = (position - getHeaderViewsCount()) % mColumnCount;
+                    break;
+                case 2:
+                    int newPosition = position%mColumnCount;
+                    column = mColumnCount-newPosition;
             }
         }
         return column;
