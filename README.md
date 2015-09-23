@@ -1,5 +1,17 @@
+
 AndroidStaggeredGrid
 =====================
+
+
+##Notice - Deprecated - 09-2015
+
+This library has been deprecated. We will no longer be shipping any updates or approving community pull requests for this project.
+
+While the code will remain for anyone who wishes to use it, we suggest you prefer using Google's own [`RecyclerView `](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html) with their [`StaggeredGridLayoutManager`](https://developer.android.com/reference/android/support/v7/widget/StaggeredGridLayoutManager.html). We are doing the same internally at Etsy.
+
+Thanks to everyone who used the library and submitted code or issues to improve it.
+
+##About
 
 An Android staggered grid view which supports multiple columns with rows of varying sizes.
 
@@ -9,8 +21,7 @@ to sync grid position across orientation changes and support for headers & foote
 
 ![Staggered Grid Sample Image][1]
 
-Features
-=====
+##Features
 
  * Configurable column count for portrait and landscape orientations.
  * Sync'd row position across orientation changes.
@@ -20,8 +31,7 @@ Features
  * Extends [`AbsListView`](http://developer.android.com/reference/android/widget/AbsListView.html) - "mostly"
  * Supports [`AbsListView.OnScrollListener`](http://developer.android.com/reference/android/widget/AbsListView.OnScrollListener.html)
 
-Setup
-=====
+##Setup
 
 The library was built for and tested on Android version 2.3.3(SDK 10) and above. It could be modified to support older versions if required.
 
@@ -46,8 +56,7 @@ The library is currently configured to be built via Gradle only. It has the foll
 
 Still use Eclipse/building with Ant? You can still use AndroidStaggeredGrid, it's just a few extra steps (left up to the reader).
 
-Usage
-=====
+##Usage
 
 *Please see the `/sample` app for a more detailed code example of how to use the library.*
 
@@ -85,8 +94,7 @@ As column widths change on orientation change, the grid view expects that all ch
 maintain their own width to height ratio. To assist with this the project includes the
 `DynamicHeightImageView` as an example of a view that measures its height based on its width.
 
-TODO
-=====
+##TODO
 
 The `StaggeredGridView` does not support the following:
 
@@ -98,8 +106,7 @@ The `StaggeredGridView` does not support the following:
  * Fading edge
  * Overscroll
 
-License
-=======
+##License
 
     Copyright (c) 2013 Etsy
 
