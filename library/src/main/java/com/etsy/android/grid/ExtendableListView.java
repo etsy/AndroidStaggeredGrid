@@ -1048,7 +1048,7 @@ public abstract class ExtendableListView extends AbsListView {
                                 mPendingCheckForTap : mPendingCheckForLongPress);
                     }
                     mLayoutMode = LAYOUT_NORMAL;
-                    if (!mDataChanged && motionPosition >= 0 && mAdapter.isEnabled(motionPosition)) {
+                    if (!mDataChanged && motionPosition >= 0 && mAdapter.isEnabled(motionPosition + mFirstPosition)) {
                         mTouchMode = TOUCH_MODE_TAP;
                         layoutChildren();
                         child.setPressed(true);
@@ -1297,7 +1297,7 @@ public abstract class ExtendableListView extends AbsListView {
             }
             for (int i = 0; i < childCount; i++) {
                 final View child = getChildAt(i);
-                if (child.getBottom() >= top) {
+                if (child.getBottom() >= top || i + firstPosition + 2 >= footerViewsStart) {
                     break;
                 }
                 else {

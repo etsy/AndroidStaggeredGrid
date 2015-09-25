@@ -996,6 +996,7 @@ public class StaggeredGridView extends ExtendableListView {
     private void setPositionColumn(final int position, final int column) {
         GridItemRecord rec = getOrCreateRecord(position);
         rec.column = column;
+		rec.isHeaderFooter = false;
     }
 
     private void setPositionHeightRatio(final int position, final int height) {
@@ -1010,6 +1011,7 @@ public class StaggeredGridView extends ExtendableListView {
     private void setPositionIsHeaderFooter(final int position) {
         GridItemRecord rec = getOrCreateRecord(position);
         rec.isHeaderFooter = true;
+		rec.column = -1;
     }
 
     private GridItemRecord getOrCreateRecord(final int position) {
