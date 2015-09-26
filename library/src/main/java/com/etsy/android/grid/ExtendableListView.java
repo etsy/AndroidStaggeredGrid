@@ -17,6 +17,8 @@
 
 package com.etsy.android.grid;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
@@ -28,13 +30,18 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.HapticFeedbackConstants;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
-
-import java.util.ArrayList;
 
 /**
  * An extendable implementation of the Android {@link android.widget.ListView}
@@ -2909,5 +2916,25 @@ public abstract class ExtendableListView extends AbsListView {
         public boolean sameWindow() {
             return hasWindowFocus() && getWindowAttachCount() == mOriginalAttachCount;
         }
+    }
+    
+    @Override
+    protected ContextMenuInfo getContextMenuInfo(){ // added by v-b-r
+    	ContextMenuInfo menuInfo = super.getContextMenuInfo();
+    	if(menuInfo==null){
+    		final ListAdapter adapter = mAdapter;
+			final int motionPosition = mPerformClick.mClickMotionPosition;
+            if (adapter != null && mItemCount > 0 &&
+                    motionPosition != INVALID_POSITION &&
+                    motionPosition < adapter.getCount()) {
+                final View view = getChildAt(motionPosition); // a fix by @pboos
+
+                if (view != null) {
+                    final int clickPosition = motionPosition + mFirstPosition;
+                    menuInfo = new AdapterContextMenuInfo(view, clickPosition, adapter.getItemId(clickPosition));
+                }
+            }
+    	}
+    	return menuInfo;
     }
 }
