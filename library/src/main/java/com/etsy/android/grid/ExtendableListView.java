@@ -29,11 +29,12 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
-
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import java.util.ArrayList;
 
 /**
@@ -142,6 +143,7 @@ public abstract class ExtendableListView extends AbsListView {
     
     private Runnable mPendingCheckForTap;
     private CheckForLongPress mPendingCheckForLongPress;
+	private ContextMenuInfo mContextMenuInfo = null;
 
     private class CheckForLongPress extends WindowRunnnable implements Runnable {
         public void run() {
@@ -2146,7 +2148,7 @@ public abstract class ExtendableListView extends AbsListView {
      * we have an empty view, display it.  In all the other cases, make sure that the listview
      * is VISIBLE and that the empty view is GONE (if it's not null).
      */
-    private void updateEmptyStatus() {
+	private void updateEmptyStatus() {
         boolean empty = getAdapter() == null || getAdapter().isEmpty();
         if (isInFilterMode()) {
             empty = false;
@@ -2885,15 +2887,40 @@ public abstract class ExtendableListView extends AbsListView {
             handled = onItemLongClickListener.onItemLongClick(ExtendableListView.this, child,
                     longPressPosition, longPressId);
         }
-//        if (!handled) {
-//            mContextMenuInfo = createContextMenuInfo(child, longPressPosition, longPressId);
-//            handled = super.showContextMenuForChild(AbsListView.this);
-//        }
+		if (!handled) {
+			mContextMenuInfo = createContextMenuInfo(child, longPressPosition,
+					longPressId);
+			handled = getParent() != null && getParent().showContextMenuForChild(this);
+		}
         if (handled) {
             performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
         }
         return handled;
     }    
+    
+	@Override
+	protected ContextMenuInfo getContextMenuInfo() {
+		return mContextMenuInfo;
+	}
+
+	/**
+	 * Creates the ContextMenuInfo returned from {@link #getContextMenuInfo()}.
+	 * This methods knows the view, position and ID of the item that received
+	 * the long press.
+	 * 
+	 * @param view
+	 *            The view that received the long press.
+	 * @param position
+	 *            The position of the item that received the long press.
+	 * @param id
+	 *            The ID of the item that received the long press.
+	 * @return The extra information that should be returned by
+	 *         {@link #getContextMenuInfo()}.
+	 */
+	ContextMenuInfo createContextMenuInfo(View view, int position, long id) {
+		return new AdapterContextMenuInfo(view, position, id);
+	}
+
 
     /**
      * A base class for Runnables that will check that their view is still attached to
